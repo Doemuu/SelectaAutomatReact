@@ -1,0 +1,88 @@
+﻿.machine {
+    display: flex;
+}
+
+    .machine .left {
+        min-width: 600px;
+        flex: 1;
+    }
+
+    .machine .right {
+        text-align: center;
+        min-width: 200px;
+        flex: 0;
+    }
+
+        .machine .right .outerbox {
+            text-align: left;
+        }
+
+
+
+
+.items {
+    border: solid black 1px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.item {
+    flex: 1 1 0;
+    text-align: center;
+}
+
+.tray {
+    text-align: center;
+    border: solid black 5px;
+}
+
+.trayItem{
+    height:100px;
+}
+
+#numpad {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+    #numpad button {
+        margin: 0 auto;
+        font-size: 20px;
+        width: 30px;
+        margin: 5px;
+        background: none;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    }
+
+    #numpad #confirmation {
+        width: 100%;
+    }
+
+.selectionDisplay {
+    display: flex;
+    align-content: stretch;
+}
+
+.selectionDisplay p{
+    border: solid black 1px;
+    width: 100%;
+    text-align: right;
+    height: 25px;
+}
+
+.outerbox{
+    margin-top:25px;
+}
+
+#fourthline {
+    display: flex;
+}
+
+#zero {
+    flex-grow: 1;
+}
