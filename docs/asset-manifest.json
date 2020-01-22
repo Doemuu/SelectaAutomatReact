@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0c83cf77.chunk.css",
+    "main.js": "/static/js/main.e581a229.chunk.js",
+    "main.js.map": "/static/js/main.e581a229.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.19e53192.js",
+    "runtime-main.js.map": "/static/js/runtime-main.19e53192.js.map",
+    "static/css/2.545c6387.chunk.css": "/static/css/2.545c6387.chunk.css",
+    "static/js/2.940e606c.chunk.js": "/static/js/2.940e606c.chunk.js",
+    "static/js/2.940e606c.chunk.js.map": "/static/js/2.940e606c.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.159364a7b475a64b735527f220f929e5.js": "/precache-manifest.159364a7b475a64b735527f220f929e5.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.545c6387.chunk.css.map": "/static/css/2.545c6387.chunk.css.map",
+    "static/css/main.0c83cf77.chunk.css.map": "/static/css/main.0c83cf77.chunk.css.map",
+    "static/media/coke.png": "/static/media/coke.dbb12576.png",
+    "static/media/fr_0.1.png": "/static/media/fr_0.1.1b306396.png",
+    "static/media/fr_0.2.png": "/static/media/fr_0.2.ef04a10e.png",
+    "static/media/fr_0.5.png": "/static/media/fr_0.5.bb1211c1.png",
+    "static/media/fr_1.png": "/static/media/fr_1.076b45ba.png",
+    "static/media/fr_2.png": "/static/media/fr_2.cef498d8.png",
+    "static/media/fr_5.png": "/static/media/fr_5.5a448018.png",
+    "static/media/nestea.png": "/static/media/nestea.c4221d57.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.19e53192.js",
+    "static/css/2.545c6387.chunk.css",
+    "static/js/2.940e606c.chunk.js",
+    "static/css/main.0c83cf77.chunk.css",
+    "static/js/main.e581a229.chunk.js"
+  ]
+}
