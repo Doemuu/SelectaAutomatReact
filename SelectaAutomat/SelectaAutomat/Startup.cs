@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SelectaAutomat.Models;
 
 namespace SelectaAutomat
 {
@@ -28,6 +29,8 @@ namespace SelectaAutomat
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddSingleton<ISelectaService, SelectaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

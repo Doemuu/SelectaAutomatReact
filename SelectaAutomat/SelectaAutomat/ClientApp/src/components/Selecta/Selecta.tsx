@@ -6,14 +6,11 @@ import cokeImg from '../../res/img/coke.png';
 import nesteaImg from '../../res/img/nestea.png';
 
 export class SelectaMachine {
-    selection: string = ""
     items: SelectaMachineItem[] = []
     selectedItem?: SelectaMachineItem
-    currentUser: User
 
-    constructor(items: SelectaMachineItem[], currentUser: User) {
+    constructor(items: SelectaMachineItem[]) {
         this.items = items
-        this.currentUser = currentUser
     }
 }
 
@@ -34,7 +31,9 @@ export class SelectaMachineItem {
 }
 
 export class User {
+    id: number
     credit: number = 0
+    selection: string = ""
 }
 
 interface IProps {
@@ -42,7 +41,8 @@ interface IProps {
 }
 
 interface IState {
-    selectaMachine: SelectaMachine
+    selectaMachine?: SelectaMachine
+    currentUser?: User
 }
 
 class Selecta extends React.Component<IProps, IState> {
@@ -50,68 +50,86 @@ class Selecta extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
 
-        const cocaCola = new SelectaMachineItem(3.5, 12, 2, "Coca Cola", cokeImg);
-        const nestea = new SelectaMachineItem(2.5, 11, 5, "Nestea", nesteaImg);
-        const items = [cocaCola, nestea];
-        const user = new User();
-        const selectaMachine = new SelectaMachine(items, user);
-
-        this.state = {
-            selectaMachine: selectaMachine,
-        }
-
         this.addSelection = this.addSelection.bind(this);
         this.clearSelection = this.clearSelection.bind(this);
         this.returnMoney = this.returnMoney.bind(this);
         this.addMoney = this.addMoney.bind(this);
         this.chooseItem = this.chooseItem.bind(this);
+
+        fetch('api/selecta/getSelecta')
+            .then(response => response.json() as Promise<SelectaMachine>)
+            .then(data => {
+                this.setState({ selectaMachine: data });
+            });
+
+        fetch('api/selecta/createUser')
+            .then(response => response.json() as Promise<User>)
+            .then(data => {
+                this.setState({ currentUser: data });
+            });
     }
 
     addSelection(selection: String) {
-        const selectaMachine = this.state.selectaMachine;
-        selectaMachine.selection += selection;
+        const currentUser = this.state.currentUser;
+
+        if (!currentUser) return;
+
+        currentUser.selection += selection;
         this.setState({
-            selectaMachine: selectaMachine
+            currentUser: currentUser
         });
     }
 
     clearSelection() {
-        const selectaMachine = this.state.selectaMachine;
-        selectaMachine.selection = "";
+        const currentUser = this.state.currentUser;
+
+        if (!currentUser) return;
+
+        currentUser.selection = "";
         this.setState({
-            selectaMachine: selectaMachine
+            currentUser: currentUser
         })
     }
 
     returnMoney() {
-        const selectaMachine = this.state.selectaMachine;
-        selectaMachine.currentUser.credit = 0;
+        const currentUser = this.state.currentUser;
+
+        if (!currentUser) return;
+
+        currentUser.credit = 0;
         this.setState({
-            selectaMachine: selectaMachine
+            currentUser: currentUser
         })
     }
 
     addMoney(credit: number) {
-        const selectaMachine = this.state.selectaMachine;
-        selectaMachine.currentUser.credit += credit;
+        const currentUser = this.state.currentUser;
+
+        if (!currentUser) return;
+
+        currentUser.credit += credit;
         this.setState({
-            selectaMachine: selectaMachine
+            currentUser: currentUser
         })
     }
 
     chooseItem(index: number) {
         const selectaMachine = this.state.selectaMachine;
+        const currentUser = this.state.currentUser;
+
+        if (!selectaMachine || !currentUser) return;
+
         var selectedItem = selectaMachine.items.filter(element => element.index == index)[0];
         if (selectedItem) {
             //Valid input
-            if (selectaMachine.currentUser.credit >= selectedItem.price) {
+            if (currentUser.credit >= selectedItem.price) {
                 //He has the money
-                selectaMachine.currentUser.credit -= selectedItem.price
+                currentUser.credit -= selectedItem.price
                 selectaMachine.selectedItem = selectedItem
                 this.setState({
-                    selectaMachine : selectaMachine
+                    selectaMachine: selectaMachine
                 })
-                
+
             } else {
                 //He does not have the money
             }
@@ -121,23 +139,24 @@ class Selecta extends React.Component<IProps, IState> {
     }
 
     render() {
-        const items = this.state.selectaMachine.items
         return (
-            <div>
-                <p>Drinks:</p>
-                
-                <Machine
-                    addSelection={this.addSelection}
-                    clearSelection={this.clearSelection}
-                    returnMoney={this.returnMoney}
-                    addMoney={this.addMoney}
-                    chooseItem={this.chooseItem}
-                    items={items}
-                    item={this.state.selectaMachine.selectedItem}
-                    credit={this.state.selectaMachine.currentUser.credit}
-                    selection={this.state.selectaMachine.selection}
-                />
-            </div>
+            !this.state.selectaMachine ?
+                <p>Loading...</p> :
+                <div>
+                    <p>Drinks:</p>
+
+                    <Machine
+                        addSelection={this.addSelection}
+                        clearSelection={this.clearSelection}
+                        returnMoney={this.returnMoney}
+                        addMoney={this.addMoney}
+                        chooseItem={this.chooseItem}
+                        items={this.state.selectaMachine.items}
+                        item={this.state.selectaMachine.selectedItem}
+                        credit={this.state.currentUser.credit}
+                        selection={this.state.currentUser.selection}
+                    />
+                </div>
         );
     }
 
